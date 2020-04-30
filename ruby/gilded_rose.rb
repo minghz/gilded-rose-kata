@@ -9,10 +9,12 @@ class GildedRose
 
       if item.name == 'Aged Brie'
         AgedBrie.age(item)
+      elsif item.name == 'Sulfuras, Hand of Ragnaros'
+        Sulfuras.age(item)
       else
 
         if item.name != "Backstage passes to a TAFKAL80ETC concert"
-          if item.quality > 0 && item.name != "Sulfuras, Hand of Ragnaros"
+          if item.quality > 0
             item.quality = item.quality - 1
           end
         else
@@ -30,16 +32,14 @@ class GildedRose
 
           end
         end
-        if item.name != "Sulfuras, Hand of Ragnaros"
-          item.sell_in = item.sell_in - 1
-        end
+
+        item.sell_in = item.sell_in - 1
+
         if item.sell_in < 0
 
           if item.name != "Backstage passes to a TAFKAL80ETC concert"
             if item.quality > 0
-              if item.name != "Sulfuras, Hand of Ragnaros"
-                item.quality = item.quality - 1
-              end
+              item.quality = item.quality - 1
             end
           else
             item.quality = item.quality - item.quality
@@ -67,7 +67,6 @@ class Item
 end
 
 module AgedBrie
-
   def self.age(item)
     if item.quality < 50
       item.quality = item.quality + 1
@@ -75,5 +74,10 @@ module AgedBrie
 
     item.sell_in = item.sell_in - 1
   end
+end
 
+module Sulfuras
+  def self.age(item)
+    # nothing happens
+  end
 end
