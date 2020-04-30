@@ -112,4 +112,33 @@ class TestUntitled < Minitest::Test
     end
   end
 
+  describe 'conjured' do
+    it 'degrades twice as fast' do
+      items = [Item.new(name="Conjured Mana Cake", sell_in=10, quality=20)]
+      GildedRose.new(items).update_quality()
+
+      assert_equal items[0].name, "Conjured Mana Cake"
+      assert_equal items[0].sell_in, 9
+      assert_equal items[0].quality, 18
+    end
+
+    it 'degrades 4x as fast past expiry date' do
+      items = [Item.new(name="Conjured Mana Cake", sell_in=0, quality=20)]
+      GildedRose.new(items).update_quality()
+
+      assert_equal items[0].name, "Conjured Mana Cake"
+      assert_equal items[0].sell_in, -1
+      assert_equal items[0].quality, 16
+    end
+
+    it 'wont have less than 0 quality' do
+      items = [Item.new(name="Conjured Mana Cake", sell_in=10, quality=0)]
+      GildedRose.new(items).update_quality()
+
+      assert_equal items[0].name, "Conjured Mana Cake"
+      assert_equal items[0].sell_in, 9
+      assert_equal items[0].quality, 0
+    end
+  end
+
 end

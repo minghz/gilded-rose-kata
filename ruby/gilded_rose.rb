@@ -13,9 +13,12 @@ class GildedRose
         Sulfuras.age(item)
       elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
         BackstagePass.age(item)
+      elsif item.name == "Conjured Mana Cake"
+        Conjured.age(item)
       else
         NormalItem.age(item)
       end
+
     end
   end
 end
@@ -40,6 +43,20 @@ module NormalItem
       item.quality = item.quality - 2
     else
       item.quality = item.quality - 1
+    end
+
+    item.quality = 0 if item.quality < 0
+
+    item.sell_in = item.sell_in - 1
+  end
+end
+
+module Conjured
+  def self.age(item)
+    if item.sell_in <= 0
+      item.quality = item.quality - 4
+    else
+      item.quality = item.quality - 2
     end
 
     item.quality = 0 if item.quality < 0
