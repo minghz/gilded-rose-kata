@@ -1,8 +1,6 @@
 require File.join(File.dirname(__FILE__), 'gilded_rose')
-#require 'test/unit'
 require 'minitest/autorun'
 
-#class TestUntitled < Test::Unit::TestCase
 class TestUntitled < Minitest::Test
 
   describe 'normal items' do
