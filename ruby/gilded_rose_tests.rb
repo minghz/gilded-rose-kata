@@ -40,8 +40,8 @@ class TestUntitled < Minitest::Test
       GildedRose.new(items).update_quality()
 
       assert_equal items[0].name, "Aged Brie"
-      assert_equal items[0].sell_in, 9
-      assert_equal items[0].quality, 1
+      assert_equal 9, items[0].sell_in
+      assert_equal 1, items[0].quality
     end 
 
     it 'quality wont increase beyond 50' do
@@ -49,8 +49,8 @@ class TestUntitled < Minitest::Test
       GildedRose.new(items).update_quality()
 
       assert_equal items[0].name, "Aged Brie"
-      assert_equal items[0].sell_in, 9
-      assert_equal items[0].quality, 50
+      assert_equal 9, items[0].sell_in
+      assert_equal 50, items[0].quality
     end 
   end
 
