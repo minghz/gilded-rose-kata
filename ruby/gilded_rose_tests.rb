@@ -80,8 +80,8 @@ class TestUntitled < Minitest::Test
       GildedRose.new(items).update_quality()
 
       assert_equal items[0].name, "Backstage passes to a TAFKAL80ETC concert"
-      assert_equal items[0].sell_in, 9
-      assert_equal items[0].quality, 22
+      assert_equal 9, items[0].sell_in
+      assert_equal 22, items[0].quality
     end
 
     it 'increases in quality by 3, when 5 or less days from expiry' do
@@ -89,8 +89,26 @@ class TestUntitled < Minitest::Test
       GildedRose.new(items).update_quality()
 
       assert_equal items[0].name, "Backstage passes to a TAFKAL80ETC concert"
-      assert_equal items[0].sell_in, 4
-      assert_equal items[0].quality, 23
+      assert_equal 4, items[0].sell_in
+      assert_equal 23, items[0].quality
+    end
+
+    it 'quality drops to 0 after concert' do
+      items = [Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=0, quality=20)]
+      GildedRose.new(items).update_quality()
+
+      assert_equal items[0].name, "Backstage passes to a TAFKAL80ETC concert"
+      assert_equal items[0].sell_in, -1
+      assert_equal items[0].quality, 0
+    end
+
+    it 'quality does not go over 50' do
+      items = [Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=50)]
+      GildedRose.new(items).update_quality()
+
+      assert_equal items[0].name, "Backstage passes to a TAFKAL80ETC concert"
+      assert_equal items[0].sell_in, 9
+      assert_equal items[0].quality, 50
     end
   end
 
